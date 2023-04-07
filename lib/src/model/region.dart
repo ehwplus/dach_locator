@@ -18,32 +18,39 @@ class Region {
 
   String? get countryCode {
     switch (country) {
-      case Country.germany: return 'DE';
-      case Country.austria: return 'AT';
-      case Country.switzerland: return 'CH';
-      default: return null;
+      case Country.germany:
+        return 'DE';
+      case Country.austria:
+        return 'AT';
+      case Country.switzerland:
+        return 'CH';
+      default:
+        return null;
     }
   }
 
   String? get countryName {
     switch (country) {
-      case Country.germany: return 'Germany';
-      case Country.austria: return 'Austria';
-      case Country.switzerland: return 'Switzerland';
-      default: return null;
+      case Country.germany:
+        return 'Germany';
+      case Country.austria:
+        return 'Austria';
+      case Country.switzerland:
+        return 'Switzerland';
+      default:
+        return null;
     }
   }
 
   String? get regionName {
-    return _getRegionName(germanRegion?.name
-        ?? austriaRegion?.name
-        ?? switzerlandRegion?.name);
+    return _getRegionName(
+        germanRegion?.name ?? austriaRegion?.name ?? switzerlandRegion?.name);
   }
 
   String? get regionCode {
-    return germanRegion?.regionCode
-        ?? austriaRegion?.regionCode
-        ?? switzerlandRegion?.regionCode;
+    return germanRegion?.regionCode ??
+        austriaRegion?.regionCode ??
+        switzerlandRegion?.regionCode;
   }
 
   String _getRegionName(String? enumName) {
@@ -73,7 +80,8 @@ class Region {
         sb.write('-');
       }
     }
-    return sb.toString()
+    return sb
+        .toString()
         .replaceAll('ae', 'ä')
         .replaceAll('ue', 'ü')
         .replaceAll('oe', 'ö');
@@ -149,47 +157,56 @@ enum AustriaRegion {
 
   String get regionCode {
     switch (this) {
-      case AustriaRegion.burgenland: return 'AT-1';
-      case AustriaRegion.kaernten: return 'AT-2';
-      case AustriaRegion.niederoesterreich: return 'AT-3';
-      case AustriaRegion.oberoesterreich: return 'AT-4';
-      case AustriaRegion.salzburg: return 'AT-5';
-      case AustriaRegion.steiermark: return 'AT-6';
-      case AustriaRegion.tirol: return 'AT-7';
-      case AustriaRegion.vorarlberg: return 'AT-8';
-      case AustriaRegion.wien: return 'AT-9';
+      case AustriaRegion.burgenland:
+        return 'AT-1';
+      case AustriaRegion.kaernten:
+        return 'AT-2';
+      case AustriaRegion.niederoesterreich:
+        return 'AT-3';
+      case AustriaRegion.oberoesterreich:
+        return 'AT-4';
+      case AustriaRegion.salzburg:
+        return 'AT-5';
+      case AustriaRegion.steiermark:
+        return 'AT-6';
+      case AustriaRegion.tirol:
+        return 'AT-7';
+      case AustriaRegion.vorarlberg:
+        return 'AT-8';
+      case AustriaRegion.wien:
+        return 'AT-9';
     }
   }
 }
 
 /// Schweizer Kantone
 enum SwitzerlandRegion {
-  zuerich,// (1)
-  bern,// (2)
-  luzern,// (3)
-  uri,// (4)
-  schwyz,// (5)
-  obwalden,// (6)
-  nidwalden,// (7)
-  glarus,// (8)
-  zug,// (9)
-  freiburg,// (10)
-  solothurn,// (11)
-  baselStadt,// (12)
-  baselLandschaft,// (13)
-  schaffhausen,// (14)
-  appenzellARh,// (15)
-  appenzellIRh,// (16)
-  sanktGallen,// (17)
-  graubuenden,// (18)
-  aargau,// (19)
-  thurgau,// (20)
-  tessin,// (21)
-  waadt,// (22)
-  wallis,// (23)
-  neuenburg,// (24)
-  genf,// (25)
-  jura;// (26)
+  zuerich, // (1)
+  bern, // (2)
+  luzern, // (3)
+  uri, // (4)
+  schwyz, // (5)
+  obwalden, // (6)
+  nidwalden, // (7)
+  glarus, // (8)
+  zug, // (9)
+  freiburg, // (10)
+  solothurn, // (11)
+  baselStadt, // (12)
+  baselLandschaft, // (13)
+  schaffhausen, // (14)
+  appenzellARh, // (15)
+  appenzellIRh, // (16)
+  sanktGallen, // (17)
+  graubuenden, // (18)
+  aargau, // (19)
+  thurgau, // (20)
+  tessin, // (21)
+  waadt, // (22)
+  wallis, // (23)
+  neuenburg, // (24)
+  genf, // (25)
+  jura; // (26)
 
   String get regionCode {
     // Aargau (AG), Bern (BE), Fribourg / Freiburg (FR), Genève / Genf (GE),
@@ -198,32 +215,58 @@ enum SwitzerlandRegion {
     // Schwyz (SZ), Solothurn (SO), Thurgau (TG), Ticino / Tessin (TI),
     // Uri (UR), Valais / Wallis (VS), Vaud / Waadt (VD), Zug (ZG), Zürich (ZH)
     switch (this) {
-      case SwitzerlandRegion.zuerich: return 'ZH';
-      case SwitzerlandRegion.bern: return 'BE';
-      case SwitzerlandRegion.luzern: return 'LU';
-      case SwitzerlandRegion.uri: return 'UR';
-      case SwitzerlandRegion.schwyz:return 'SZ';
-      case SwitzerlandRegion.obwalden: return 'OW';
-      case SwitzerlandRegion.nidwalden: return 'NW';
-      case SwitzerlandRegion.glarus: return 'GL';
-      case SwitzerlandRegion.zug: return 'ZG';
-      case SwitzerlandRegion.freiburg: return 'FR';
-      case SwitzerlandRegion.solothurn: return 'SO';
-      case SwitzerlandRegion.baselStadt: return 'BS';
-      case SwitzerlandRegion.baselLandschaft: return 'BL';
-      case SwitzerlandRegion.schaffhausen: return 'SH';
-      case SwitzerlandRegion.appenzellARh: return 'AR';
-      case SwitzerlandRegion.appenzellIRh: return 'AI';
-      case SwitzerlandRegion.sanktGallen: return 'SG';
-      case SwitzerlandRegion.graubuenden: return 'GR';
-      case SwitzerlandRegion.aargau: return 'AG';
-      case SwitzerlandRegion.thurgau: return 'TG';
-      case SwitzerlandRegion.tessin: return 'TI';
-      case SwitzerlandRegion.waadt: return 'VD';
-      case SwitzerlandRegion.wallis: return 'VS';
-      case SwitzerlandRegion.neuenburg: return 'NE';
-      case SwitzerlandRegion.genf: return 'GE';
-      case SwitzerlandRegion.jura: return 'JU';
+      case SwitzerlandRegion.zuerich:
+        return 'ZH';
+      case SwitzerlandRegion.bern:
+        return 'BE';
+      case SwitzerlandRegion.luzern:
+        return 'LU';
+      case SwitzerlandRegion.uri:
+        return 'UR';
+      case SwitzerlandRegion.schwyz:
+        return 'SZ';
+      case SwitzerlandRegion.obwalden:
+        return 'OW';
+      case SwitzerlandRegion.nidwalden:
+        return 'NW';
+      case SwitzerlandRegion.glarus:
+        return 'GL';
+      case SwitzerlandRegion.zug:
+        return 'ZG';
+      case SwitzerlandRegion.freiburg:
+        return 'FR';
+      case SwitzerlandRegion.solothurn:
+        return 'SO';
+      case SwitzerlandRegion.baselStadt:
+        return 'BS';
+      case SwitzerlandRegion.baselLandschaft:
+        return 'BL';
+      case SwitzerlandRegion.schaffhausen:
+        return 'SH';
+      case SwitzerlandRegion.appenzellARh:
+        return 'AR';
+      case SwitzerlandRegion.appenzellIRh:
+        return 'AI';
+      case SwitzerlandRegion.sanktGallen:
+        return 'SG';
+      case SwitzerlandRegion.graubuenden:
+        return 'GR';
+      case SwitzerlandRegion.aargau:
+        return 'AG';
+      case SwitzerlandRegion.thurgau:
+        return 'TG';
+      case SwitzerlandRegion.tessin:
+        return 'TI';
+      case SwitzerlandRegion.waadt:
+        return 'VD';
+      case SwitzerlandRegion.wallis:
+        return 'VS';
+      case SwitzerlandRegion.neuenburg:
+        return 'NE';
+      case SwitzerlandRegion.genf:
+        return 'GE';
+      case SwitzerlandRegion.jura:
+        return 'JU';
     }
   }
 }

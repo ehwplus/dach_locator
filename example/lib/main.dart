@@ -43,7 +43,9 @@ class _ZipCodeConverterPageState extends State<ZipCodeConverterPage> {
     controller = TextEditingController();
     controller.addListener(() {
       _zipCode = controller.text;
-      if (int.tryParse(_zipCode) != null && _zipCode.length > 3 && _zipCode.length < 6) {
+      if (int.tryParse(_zipCode) != null &&
+          _zipCode.length > 3 &&
+          _zipCode.length < 6) {
         final regionMatch = _resolveRegion(_zipCode);
         setState(() {
           _region = regionMatch;
@@ -85,21 +87,25 @@ class _ZipCodeConverterPageState extends State<ZipCodeConverterPage> {
           const SizedBox(
             height: 32,
           ),
-          if (_region?.regionName != null) Text(
-            _region!.regionName!,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          if (_region?.regionName != null && _region?.countryName != null) Text(
-            _region!.countryName!,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          if (_region?.regionName != null)
+            Text(
+              _region!.regionName!,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          if (_region?.regionName != null && _region?.countryName != null)
+            Text(
+              _region!.countryName!,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
         ],
       ),
     );
   }
 
   Region? _resolveRegion(String zipCode, {String? countryCode}) {
-    if (int.tryParse(zipCode) != null && zipCode.length > 3 && zipCode.length < 6) {
+    if (int.tryParse(zipCode) != null &&
+        zipCode.length > 3 &&
+        zipCode.length < 6) {
       return getRegion(zipCode, countryCode: countryCode);
     }
     return null;
