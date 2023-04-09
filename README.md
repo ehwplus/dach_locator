@@ -1,3 +1,7 @@
+# dach_locator
+[![pub package](https://img.shields.io/pub/v/dach_locator.svg)](https://pub.dartlang.org/packages/dach_locator)
+[![Build Status](https://github.com/ehwplus/dach_locator/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/ehwplus/dach_locator/actions/workflows/tests.yaml)
+
 Given a zip code of Germany, Austria or Switzerland the region is resolved.
 
 ## Features
