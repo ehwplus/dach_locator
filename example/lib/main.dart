@@ -33,7 +33,7 @@ class ZipCodeConverterPage extends StatefulWidget {
 class _ZipCodeConverterPageState extends State<ZipCodeConverterPage> {
   String _zipCode = '';
 
-  Region? _region;
+  Set<Region> _regions = {};
 
   late TextEditingController controller;
 
@@ -46,13 +46,13 @@ class _ZipCodeConverterPageState extends State<ZipCodeConverterPage> {
       if (int.tryParse(_zipCode) != null &&
           _zipCode.length > 3 &&
           _zipCode.length < 6) {
-        final regionMatch = _resolveRegion(_zipCode);
+        final regionMatches = _resolveRegion(_zipCode);
         setState(() {
-          _region = regionMatch;
+          _regions = regionMatches;
         });
       } else {
         setState(() {
-          _region = null;
+          _regions = {};
         });
       }
     });
@@ -87,27 +87,30 @@ class _ZipCodeConverterPageState extends State<ZipCodeConverterPage> {
           const SizedBox(
             height: 32,
           ),
-          if (_region?.regionName != null)
-            Text(
-              _region!.regionName!,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          if (_region?.regionName != null && _region?.countryName != null)
-            Text(
-              _region!.countryName!,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+          for (final region in _regions) ...[
+            if (region.regionName != null)
+              Text(
+                region.regionName!,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            if (region.regionName != null && region.countryName != null)
+              Text(
+                region.countryName!,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+          ]
         ],
       ),
     );
   }
 
-  Region? _resolveRegion(String zipCode, {String? countryCode}) {
+  Set<Region> _resolveRegion(String zipCode, {String? countryCode}) {
     if (int.tryParse(zipCode) != null &&
         zipCode.length > 3 &&
         zipCode.length < 6) {
-      return getRegion(zipCode, countryCode: countryCode);
+      final regions = getRegion(zipCode, countryCode: countryCode);
+      return regions;
     }
-    return null;
+    return {};
   }
 }

@@ -17,10 +17,10 @@ identically to `getAustriaRegionCode`, `getGermanRegionCode` or `getSwitzerlandR
 `countryCode` is not passed, the method tries to resolve the country of the zip code automatically.
 
 ```dart
-Region? resolveRegion(String zipCode, {String? countryCode}) {
+  Set<Region> _resolveRegion(String zipCode, {String? countryCode}) {
   if (int.tryParse(zipCode) != null && zipCode.length > 3 && zipCode.length < 6) {
     return getRegion(zipCode, countryCode: countryCode);
   }
-  return null;
+  return {};
 }
 ```

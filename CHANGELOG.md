@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Interface change: getRegion returns list of regions because for one plz sometimes two regions are correct.
+
 ## 1.0.1
 
 * Formatting

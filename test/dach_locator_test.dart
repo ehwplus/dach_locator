@@ -4,19 +4,29 @@ import 'package:dach_locator/dach_locator.dart';
 
 void main() {
   group('ZIP to Region', () {
-    test('PLZ 68519 Viernheim -> GermanRegion.Hessen', () {
-      const plzViernheim = '68519';
-      expect(getGermanRegionCode(plzViernheim), GermanRegion.hessen);
+    test('PLZ 68519 Viernheim -> Hessen (DE)', () {
+      const plz = '68519';
+      expect(getGermanRegionCode(plz), {GermanRegion.hessen});
     });
 
-    test('PLZ 69469 Weinheim -> GermanRegion.BadenWuerttemberg', () {
-      const plzWeinheim = '69469';
-      expect(getGermanRegionCode(plzWeinheim), GermanRegion.badenWuerttemberg);
+    test('PLZ 69469 Weinheim -> Baden Württemberg (DE)', () {
+      const plz = '69469';
+      expect(getGermanRegionCode(plz), {GermanRegion.badenWuerttemberg});
+    });
+
+    test('PLZ 07919 Pausa-Mühltroff -> Thüringen/Sachsen (DE)', () {
+      const plz = '07919';
+      expect(getGermanRegionCode(plz), {GermanRegion.thueringen, GermanRegion.sachsen});
+    });
+
+    test('PLZ 87491 Jungholz -> Tirol (AT)', () {
+      const plz = '87491';
+      expect(getAustriaRegionCode(plz), {AustriaRegion.tirol});
     });
 
     test('PLZ 5745 -> SwitzerlandRegion.Aargau', () {
-      const plzAargau = '5745';
-      expect(getSwitzerlandRegionCode(plzAargau), SwitzerlandRegion.aargau);
+      const plz = '5745';
+      expect(getSwitzerlandRegionCode(plz), {SwitzerlandRegion.aargau});
     });
   });
 

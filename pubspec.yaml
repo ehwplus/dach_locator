@@ -1,6 +1,6 @@
 name: dach_locator
 description: Given a zip code of Germany, Austria or Switzerland the region is resolved.
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/ehwplus/dach_locator
 
 environment:

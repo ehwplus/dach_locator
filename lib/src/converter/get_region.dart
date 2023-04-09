@@ -2,40 +2,32 @@ import 'dart:ui' as ui;
 
 import 'package:dach_locator/dach_locator.dart';
 
-Region? getRegion(String regionCode, {String? countryCode}) {
+/// If [countryCode] is set, the method is identical to [getGermanRegionCode], [getSwitzerlandRegionCode] or
+/// [getAustriaRegionCode]. If [countryCode] is not given, the country is automatically resolved. Given the
+/// current locale, the country of the device is being determined. If no zip code match is resolved, this returns
+/// a [Region] instance without de, ch, at region.
+Set<Region> getRegion(String regionCode, {String? countryCode}) {
   final deviceCountryCode = countryCode ?? ui.window.locale.countryCode;
 
   if (regionCode.length == 5 &&
       (countryCode == null || deviceCountryCode == 'DE')) {
-    final germanRegion = getGermanRegionCode(regionCode);
-    if (germanRegion != null) {
-      return Region(
-        country: Country.germany,
-        germanRegion: germanRegion,
-      );
-    }
+    return getGermanRegionCode(regionCode)
+        .map((region) => Region(country: Country.germany, germanRegion: region))
+        .toSet();
   }
 
   if ((regionCode.length == 4 || regionCode.length == 5) &&
       (countryCode == null || deviceCountryCode == 'AT')) {
-    final austriaRegion = getAustriaRegionCode(regionCode);
-    if (austriaRegion != null) {
-      return Region(
-        country: Country.austria,
-        austriaRegion: austriaRegion,
-      );
-    }
+    return getAustriaRegionCode(regionCode)
+        .map((region) => Region(country: Country.austria, austriaRegion: region))
+        .toSet();
   }
 
   if (regionCode.length == 4 &&
       (countryCode == null || deviceCountryCode == 'CH')) {
-    final switzerlandRegion = getSwitzerlandRegionCode(regionCode);
-    if (switzerlandRegion != null) {
-      return Region(
-        country: Country.switzerland,
-        switzerlandRegion: switzerlandRegion,
-      );
-    }
+    return getSwitzerlandRegionCode(regionCode)
+        .map((region) => Region(country: Country.switzerland, switzerlandRegion: region))
+        .toSet();
   }
 
   if (['DE', 'CH', 'AT'].contains(deviceCountryCode)) {
@@ -47,17 +39,19 @@ Region? getRegion(String regionCode, {String? countryCode}) {
     } else if (deviceCountryCode == 'CH') {
       country = Country.switzerland;
     }
-    return Region(
-      country: country,
-    );
+    return {
+      Region(
+        country: country,
+      ),
+    };
   }
 
-  return null;
+  return {};
 }
 
 /// Note: There are cities with same postal code but different region, e.g.
 /// Pausa-Mühltroff (Sachsen) and Kirschkau (Thüringen) with postal code "07919".
-GermanRegion? getGermanRegionCode(String plz) {
+Set<GermanRegion> getGermanRegionCode(String plz) {
   assert(plz.length == 5, 'German PLZ should have length 5.');
 
   final code = int.parse(plz);
@@ -281,19 +275,22 @@ GermanRegion? getGermanRegionCode(String plz) {
     GermanRegion.saarland: {'66001-66459', '66511-66839'},
   };
 
+  final regions = <GermanRegion>{};
   for (final region in map.keys) {
     for (final value in map[region]!) {
       final pair = value.split('-');
       if (code >= int.parse(pair[0]) && code <= int.parse(pair[1])) {
-        return region;
+        regions.add(region);
       }
     }
   }
 
-  return null;
+  return regions;
 }
 
-AustriaRegion? getAustriaRegionCode(String plz) {
+/// Austrian postcodes have four (standard case) or five digits (rare exception).
+/// Returns a set of Austrian regions with length 0 or 1.
+Set<AustriaRegion> getAustriaRegionCode(String plz) {
   assert(plz.length == 5 || plz.length == 4,
       'Austria PLZ should have length 4 or 5.');
 
@@ -314,7 +311,7 @@ AustriaRegion? getAustriaRegionCode(String plz) {
       for (final value in map[region]!) {
         final pair = value.split('-');
         if (code >= int.parse(pair[0]) && code <= int.parse(pair[1])) {
-          return region;
+          return {region};
         }
       }
     }
@@ -410,16 +407,18 @@ AustriaRegion? getAustriaRegionCode(String plz) {
       for (final value in map[region]!) {
         final pair = value.split('-');
         if (code >= int.parse(pair[0]) && code <= int.parse(pair[1])) {
-          return region;
+          return {region};
         }
       }
     }
   }
 
-  return null;
+  return {};
 }
 
-SwitzerlandRegion? getSwitzerlandRegionCode(String plz) {
+/// Swiss postcodes always have four digits.
+/// Returns a set of Swiss regions with length 0 or 1.
+Set<SwitzerlandRegion> getSwitzerlandRegionCode(String plz) {
   assert(plz.length == 4, 'Switzerland PLZ should have length 4.');
 
   final code = int.parse(plz);
@@ -428,7 +427,7 @@ SwitzerlandRegion? getSwitzerlandRegionCode(String plz) {
     '6911', // Campione d'Italia
     '8238', // Büsingen in DE
   }.contains(plz)) {
-    return null;
+    return {};
   }
 
   // source: https://postleitzahlenschweiz.ch/tabelle/
@@ -766,10 +765,10 @@ SwitzerlandRegion? getSwitzerlandRegionCode(String plz) {
     for (final value in map[region]!) {
       final pair = value.split('-');
       if (code >= int.parse(pair[0]) && code <= int.parse(pair[1])) {
-        return region;
+        return {region};
       }
     }
   }
 
-  return null;
+  return {};
 }
