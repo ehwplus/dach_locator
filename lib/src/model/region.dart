@@ -1,5 +1,6 @@
 import 'country.dart';
 
+/// Given a zip code the purpose of this package is to resolve a set of [Region].
 class Region {
   const Region({
     required this.country,
@@ -8,14 +9,19 @@ class Region {
     this.switzerlandRegion,
   });
 
+  /// Country Germany (D), Austria (A) or Switzerland (CH)
   final Country? country;
 
+  /// A region (Bundesland) of Germany
   final GermanRegion? germanRegion;
 
+  /// A region (Bundesland) of Austria
   final AustriaRegion? austriaRegion;
 
+  /// A region (Kanton) of Switzerland
   final SwitzerlandRegion? switzerlandRegion;
 
+  /// Country code of Germany (DE), Austria (AT) or Switzerland (CH)
   String? get countryCode {
     switch (country) {
       case Country.germany:
@@ -29,6 +35,7 @@ class Region {
     }
   }
 
+  /// Country name in English
   String? get countryName {
     switch (country) {
       case Country.germany:
@@ -42,11 +49,13 @@ class Region {
     }
   }
 
+  /// Returns the region name in German, e.g. "Baden-Württemberg"
   String? get regionName {
     return _getRegionName(
         germanRegion?.name ?? austriaRegion?.name ?? switzerlandRegion?.name);
   }
 
+  /// Returns the region code, e.g. "BW" or "AT-1"
   String? get regionCode {
     return germanRegion?.regionCode ??
         austriaRegion?.regionCode ??
@@ -88,6 +97,7 @@ class Region {
   }
 }
 
+/// Germany with 16 regions (Bundesländer)
 enum GermanRegion {
   badenWuerttemberg,
   bayern,
@@ -106,6 +116,7 @@ enum GermanRegion {
   schleswigHolstein,
   thueringen;
 
+  /// Returns the region code, e.g. "BW"
   String get regionCode {
     switch (this) {
       case GermanRegion.badenWuerttemberg:
@@ -144,6 +155,7 @@ enum GermanRegion {
   }
 }
 
+/// Austria with 9 regions (Bundesländer)
 enum AustriaRegion {
   burgenland, // 1
   kaernten, // 2
@@ -155,6 +167,7 @@ enum AustriaRegion {
   vorarlberg, // 8
   wien; // 9
 
+  /// Returns the region code, e.g. "AT-1"
   String get regionCode {
     switch (this) {
       case AustriaRegion.burgenland:
@@ -179,7 +192,7 @@ enum AustriaRegion {
   }
 }
 
-/// Schweizer Kantone
+/// Switzerland with 26 regions (Schweizer Kantone)
 enum SwitzerlandRegion {
   zuerich, // (1)
   bern, // (2)
@@ -208,6 +221,7 @@ enum SwitzerlandRegion {
   genf, // (25)
   jura; // (26)
 
+  /// Returns the region code, e.g. "AG"
   String get regionCode {
     // Aargau (AG), Bern (BE), Fribourg / Freiburg (FR), Genève / Genf (GE),
     // Glarus (GL), Graubünden (GR), Jura (JU), Luzern (LU),

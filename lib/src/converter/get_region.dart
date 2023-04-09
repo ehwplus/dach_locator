@@ -19,14 +19,16 @@ Set<Region> getRegion(String regionCode, {String? countryCode}) {
   if ((regionCode.length == 4 || regionCode.length == 5) &&
       (countryCode == null || deviceCountryCode == 'AT')) {
     return getAustriaRegionCode(regionCode)
-        .map((region) => Region(country: Country.austria, austriaRegion: region))
+        .map(
+            (region) => Region(country: Country.austria, austriaRegion: region))
         .toSet();
   }
 
   if (regionCode.length == 4 &&
       (countryCode == null || deviceCountryCode == 'CH')) {
     return getSwitzerlandRegionCode(regionCode)
-        .map((region) => Region(country: Country.switzerland, switzerlandRegion: region))
+        .map((region) =>
+            Region(country: Country.switzerland, switzerlandRegion: region))
         .toSet();
   }
 

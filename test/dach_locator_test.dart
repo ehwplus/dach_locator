@@ -16,7 +16,8 @@ void main() {
 
     test('PLZ 07919 Pausa-Mühltroff -> Thüringen/Sachsen (DE)', () {
       const plz = '07919';
-      expect(getGermanRegionCode(plz), {GermanRegion.thueringen, GermanRegion.sachsen});
+      expect(getGermanRegionCode(plz),
+          {GermanRegion.thueringen, GermanRegion.sachsen});
     });
 
     test('PLZ 87491 Jungholz -> Tirol (AT)', () {
