@@ -7,6 +7,7 @@ import 'package:dach_locator/dach_locator.dart';
 /// current locale, the country of the device is being determined. If no zip code match is resolved, this returns
 /// a [Region] instance without de, ch, at region.
 Set<Region> getRegion(String regionCode, {String? countryCode}) {
+  // ignore: deprecated_member_use
   final deviceCountryCode = countryCode ?? ui.window.locale.countryCode;
 
   if (regionCode.length == 5 &&

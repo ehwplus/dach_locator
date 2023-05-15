@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Dart 3 support
+
 ## 1.1.1
 
 * Formatting and documentation
